@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
 import ImageGalleryItem from "./components/ImageGalleryItem";
@@ -17,7 +17,11 @@ function App() {
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState("");
 
-  const getItemsForGallery = useCallback(() => {
+  useEffect(() => {
+    if (!searchQuery) {
+      return;
+    }
+
     setLoader(true);
     fetchImages(searchQuery, pageNumber)
       .then((responce) => {
@@ -29,13 +33,6 @@ function App() {
       .catch(setError)
       .finally(setLoader(false));
   }, [searchQuery, pageNumber]);
-
-  useEffect(() => {
-    if (!searchQuery) {
-      return;
-    }
-    getItemsForGallery();
-  }, [searchQuery, getItemsForGallery]);
 
   const openImage = (id) => {
     setModalShow(!modalShow);
