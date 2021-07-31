@@ -60,7 +60,7 @@ function App() {
             id={item.id}
             url={item.webformatURL}
             openImage={openImage}
-          ></ImageGalleryItem>
+          />
         ))}
       </ImageGallery>
 
